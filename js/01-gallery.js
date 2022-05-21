@@ -30,14 +30,15 @@ function onGalleryItemClick(evt) {
   if (!evt.target.classList.contains('gallery__image')) {
     return;
   }
-  instance = basicLightbox.create(`<img src="${evt.target.dataset.source}" width="800" height="600">`)
+  instance = basicLightbox.create(`<img src="${evt.target.dataset.source}" width="800" height="600">`, {
+    onClose: (instance) => {window.removeEventListener('keydown', onKeybordEscButtonClick);}
+  })
   window.addEventListener('keydown', onKeybordEscButtonClick);
   instance.show();
 }
 
 function onKeybordEscButtonClick(evt) {
   if (evt.code === 'Escape') {
-    window.removeEventListener('keydown', onKeybordEscButtonClick);
     instance.close()
   }
 }
